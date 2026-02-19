@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENUE — New York Event Spaces</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --accent: #7c3aed;
+    --gray: #1c1c1c;
+    --mid: #6b6b6b;
+    --border: #2a2a2a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    font-weight: 500 !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 2.5rem 4rem;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, transparent 40%, var(--black) 100%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 80px,
+        rgba(255,255,255,0.015) 80px,
+        rgba(255,255,255,0.015) 81px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 80px,
+        rgba(255,255,255,0.015) 80px,
+        rgba(255,255,255,0.015) 81px
+      );
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 14rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .hero h1 .outline {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+
+  .hero-sub {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 2rem;
+  }
+
+  .hero-desc {
+    max-width: 420px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,242,236,0.65);
+  }
+
+  .hero-stat {
+    text-align: right;
+  }
+
+  .hero-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .hero-stat .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* ── SCROLL TICKER ── */
+  .ticker {
+    background: var(--accent);
+    padding: 0.7rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex; gap: 3rem;
+    animation: ticker 25s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+
+  .ticker-sep { color: rgba(255,255,255,0.4); }
+
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── FILTERS ── */
+  .filters-section {
+    padding: 3rem 2.5rem 2rem;
+    position: sticky; top: 61px; z-index: 50;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filters-row {
+    display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;
+  }
+
+  .filter-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-right: 0.5rem;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--mid);
+    padding: 0.45rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--white);
+    color: var(--black);
+    border-color: var(--white);
+  }
+
+  .filter-btn.cat-active {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+
+  /* ── VENUES GRID ── */
+  #venues {
+    padding: 3rem 2.5rem 6rem;
+  }
+
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .venue-count {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .venues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5px;
+  }
+
+  .venue-card {
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+
+  .venue-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    z-index: 1;
+    transition: opacity 0.4s;
+  }
+
+  .venue-card:hover::before { opacity: 0.7; }
+
+  .venue-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    background: var(--gray);
+  }
+
+  /* Placeholder patterns for demo */
+  .venue-card:nth-child(1) .venue-img { background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #11998e 100%); }
+  .venue-card:nth-child(2) .venue-img { background: linear-gradient(135deg, #1c1c1c 0%, #c0392b 100%); }
+  .venue-card:nth-child(3) .venue-img { background: linear-gradient(135deg, #0f3460 0%, #533483 50%, #e94560 100%); }
+  .venue-card:nth-child(4) .venue-img { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); }
+  .venue-card:nth-child(5) .venue-img { background: linear-gradient(135deg, #1a1a1a 0%, #8B6914 100%); }
+  .venue-card:nth-child(6) .venue-img { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); }
+  .venue-card:nth-child(7) .venue-img { background: linear-gradient(135deg, #2d3561 0%, #c05c7e 50%, #f3826f 100%); }
+  .venue-card:nth-child(8) .venue-img { background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #533483 100%); }
+
+  .venue-card:hover .venue-img { transform: scale(1.06); }
+
+  .venue-info {
+    position: relative; z-index: 2;
+    padding: 1.5rem;
+  }
+
+  .venue-type {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .venue-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.4rem;
+  }
+
+  .venue-neighborhood {
+    font-size: 0.75rem;
+    color: rgba(245,242,236,0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .venue-meta {
+    display: flex; gap: 1.5rem;
+  }
+
+  .venue-meta-item {
+    display: flex; flex-direction: column;
+  }
+
+  .venue-meta-item .val {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .venue-meta-item .key {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .venue-cta {
+    position: absolute; top: 1.5rem; right: 1.5rem; z-index: 2;
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.3s;
+  }
+
+  .venue-card:hover .venue-cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--black);
+    border: 1px solid var(--border);
+    width: 100%; max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-visual {
+    min-height: 400px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    background: var(--black);
+    border: 1px solid var(--border);
+    color: var(--white);
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: var(--accent); border-color: var(--accent); }
+
+  .modal-content {
+    padding: 2.5rem;
+    display: flex; flex-direction: column;
+  }
+
+  .modal-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-location {
+    font-size: 0.78rem;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-desc {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: rgba(245,242,236,0.7);
+    margin-bottom: 2rem;
+  }
+
+  .modal-specs {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .spec { display: flex; flex-direction: column; gap: 0.2rem; }
+  .spec-val { font-size: 1.1rem; font-weight: 500; }
+  .spec-key { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+
+  .modal-divider {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .form-row { margin-bottom: 1rem; }
+
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    background: var(--gray);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus { border-color: var(--accent); }
+
+  .form-row input::placeholder,
+  .form-row textarea::placeholder { color: var(--mid); }
+
+  .form-row select option { background: var(--gray); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  .form-row textarea { resize: vertical; min-height: 80px; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .btn-submit:hover { background: #6d28d9; }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .success-msg .checkmark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .success-msg p {
+    color: rgba(245,242,236,0.65);
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  footer p {
+    font-size: 0.72rem;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── HIDDEN ── */
+  .hidden { display: none !important; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .hero { padding: 80px 1.2rem 3rem; }
+    #venues { padding: 2rem 1.2rem 4rem; }
+    .filters-section { padding: 1.5rem 1.2rem 1rem; }
+    .modal { grid-template-columns: 1fr; }
+    .modal-visual { min-height: 220px; }
+    .hero-stat { display: none; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">VEN<span>U</span>E</a>
+  <ul class="nav-links">
+    <li><a href="#venues">Browse</a></li>
+    <li><a href="#venues">NYC Spaces</a></li>
+    <li><a href="#" class="nav-cta">List Your Venue</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tag">New York's Premier Venue Directory — For Event Professionals</p>
+  <h1>FIND<br>YOUR<br><span class="outline">SPACE.</span></h1>
+  <div class="hero-sub">
+    <p class="hero-desc">The definitive platform for event planners sourcing extraordinary New York venues. Rooftops, galleries, ballrooms, intimate hideaways — all in one place.</p>
+    <div class="hero-stat">
+      <div class="num">200+</div>
+      <div class="label">Curated Venues</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner"></div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-section">
+  <div class="filters-row">
+    <span class="filter-label">Filter by</span>
+    <button class="filter-btn cat-active" data-cat="all">All Venues</button>
+    <button class="filter-btn" data-cat="intimate">Intimate Spaces</button>
+    <button class="filter-btn" data-cat="rooftop">Rooftops & Outdoor</button>
+    <button class="filter-btn" data-cat="gallery">Galleries & Creative</button>
+    <button class="filter-btn" data-cat="hotel">Hotels & Ballrooms</button>
+    <button class="filter-btn" data-cat="restaurant">Restaurants</button>
+  </div>
+</div>
+
+<!-- VENUES -->
+<section id="venues">
+  <div class="section-header">
+    <h2 class="section-title">New York Spaces</h2>
+    <span class="venue-count" id="venueCount">8 venues</span>
+  </div>
+  <div class="venues-grid" id="venuesGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">VEN<span>U</span>E</div>
+  <p>© 2025 Venue NYC — Built for Event Professionals</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-visual" id="modalVisual">
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-type" id="mType"></div>
+      <h2 class="modal-name" id="mName"></h2>
+      <div class="modal-location" id="mLocation"></div>
+      <p class="modal-desc" id="mDesc"></p>
+      <div class="modal-specs" id="mSpecs"></div>
+
+      <div class="modal-divider">Inquire About This Space</div>
+      <form id="inquiryForm">
+        <div class="form-grid">
+          <div class="form-row"><input type="text" placeholder="Your Name" required></div>
+          <div class="form-row"><input type="email" placeholder="Email Address" required></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row"><input type="text" placeholder="Company / Agency"></div>
+          <div class="form-row"><input type="text" placeholder="Event Date"></div>
+        </div>
+        <div class="form-row">
+          <select>
+            <option value="" disabled selected>Event Type</option>
+            <option>Corporate Event</option>
+            <option>Product Launch</option>
+            <option>Private Dinner</option>
+            <option>Brand Activation</option>
+            <option>Conference / Summit</option>
+            <option>Art / Cultural Event</option>
+            <option>Wedding / Celebration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <textarea placeholder="Tell us about your event — expected guest count, vision, specific requirements..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Inquiry →</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        <span class="checkmark">✓</span>
+        <p>Your inquiry has been sent.<br>The venue team will be in touch within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const venues = [
+  {
+    id: 1, cat: "gallery",
+    name: "Spring Studios",
+    neighborhood: "Tribeca",
+    type: "Gallery & Creative Space",
+    desc: "A premier 45,000 sq ft creative campus in Tribeca with column-free spaces, 30-foot ceilings, and a 9,550 sq ft roof terrace. Floor-to-ceiling windows offer sweeping city skyline views. State-of-the-art facilities and flexible design make it ideal for high-production events.",
+    capacity: "1,000+", price: "Contact for pricing", size: "45,000 sqft", floors: "Multi-level",
+    gradient: "linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #11998e 100%)"
+  },
+  {
+    id: 2, cat: "rooftop",
+    name: "The Skylark",
+    neighborhood: "Midtown West",
+    type: "Rooftop & Outdoor",
+    desc: "Known for its breathtaking panoramic views of New York City, The Skylark features an open-air rooftop deck with views of Times Square and the Hudson River. Multiple event spaces with floor-to-ceiling windows and a state-of-the-art sound system.",
+    capacity: "400", price: "Contact for pricing", size: "Multi-room", floors: "Rooftop",
+    gradient: "linear-gradient(135deg, #1c1c1c 0%, #6d28d9 100%)"
+  },
+  {
+    id: 3, cat: "intimate",
+    name: "Triangle Loft NoHo",
+    neighborhood: "NoHo",
+    type: "Intimate Event Space",
+    desc: "An airy, light-filled loft in the heart of NoHo, perfect for weddings, product launches, and private gatherings. Features flexible layout with an intimate rooftop component accommodating up to 200 standing and 100 seated guests under an open sky.",
+    capacity: "200", price: "Contact for pricing", size: "Flexible", floors: "Loft + Rooftop",
+    gradient: "linear-gradient(135deg, #0f3460 0%, #533483 50%, #e94560 100%)"
+  },
+  {
+    id: 4, cat: "hotel",
+    name: "Ziegfeld Ballroom",
+    neighborhood: "Midtown",
+    type: "Hotel & Ballroom",
+    desc: "An iconic Art Deco-inspired event space at the corner of Broadway and Seventh Avenue. Originally opened in 1969 as a grand single-screen movie palace, it reopened in 2017 as a premier event venue. The stunning column-free ballroom holds over 1,300 guests with heritage details and cutting-edge technology.",
+    capacity: "1,300+", price: "Contact for pricing", size: "Column-free ballroom", floors: "Ground Level",
+    gradient: "linear-gradient(135deg, #2c3e50 0%, #3498db 100%)"
+  },
+  {
+    id: 5, cat: "restaurant",
+    name: "Hawksmoor",
+    neighborhood: "Gramercy",
+    type: "Restaurant",
+    desc: "A renowned British steakhouse set in the historic United Charities Building. Vaulted ceilings, stained glass windows, and restored architectural details create a dramatic backdrop for private events and exclusive dinners.",
+    capacity: "200", price: "Contact for pricing", size: "Historic building", floors: "Ground Level",
+    gradient: "linear-gradient(135deg, #1a1a1a 0%, #7c3aed 100%)"
+  },
+  {
+    id: 6, cat: "intimate",
+    name: "Racket NYC",
+    neighborhood: "Chelsea",
+    type: "Intimate Event Space",
+    desc: "A newly renovated multi-room venue in the heart of Chelsea with exceptional sound, stage, and lighting capabilities. Features three bars, a balcony, and a main floor creatively customizable for corporate events, fashion shows, award galas, and private concerts.",
+    capacity: "650", price: "Contact for pricing", size: "Two-floor", floors: "2 levels",
+    gradient: "linear-gradient(135deg, #134e5e 0%, #71b280 100%)"
+  },
+  {
+    id: 7, cat: "rooftop",
+    name: "Pier Sixty at Chelsea Piers",
+    neighborhood: "Chelsea",
+    type: "Rooftops & Outdoor",
+    desc: "The largest waterfront venue in Manhattan, featuring over 20,000 sq ft of column-free space with spectacular Hudson River views and floor-to-ceiling windows. Equipped with blackout shades, rigging points, on-site AV specialists, and ground-floor load-in. Accommodates 200 to 2,000 guests.",
+    capacity: "2,000", price: "Contact for pricing", size: "20,000 sqft", floors: "Waterfront",
+    gradient: "linear-gradient(135deg, #2d3561 0%, #c05c7e 50%, #f3826f 100%)"
+  },
+  {
+    id: 8, cat: "gallery",
+    name: "Lavan 641 Midtown",
+    neighborhood: "Midtown",
+    type: "Gallery & Creative Space",
+    desc: "A luxurious ground-floor event space featuring a 20-foot-high ceiling surrounded by 145 feet of seamless projection mapping technology. A cutting-edge, fully programmable environment ideal for immersive corporate events, product launches, and brand activations.",
+    capacity: "800", price: "Contact for pricing", size: "Ground floor", floors: "Ground Level",
+    gradient: "linear-gradient(135deg, #16213e 0%, #0f3460 50%, #533483 100%)"
+  }
+];
+
+// Build ticker
+const tickerItems = ["Tribeca", "Chelsea Rooftops", "Ballrooms", "Brooklyn Lofts", "Intimate Dinners", "Gallery Spaces", "Waterfront", "West Village", "DUMBO", "Midtown"].flatMap(i => [`<span class="ticker-item">${i}</span>`, `<span class="ticker-item ticker-sep">—</span>`]);
+const ticker = document.getElementById('tickerInner');
+ticker.innerHTML = [...tickerItems, ...tickerItems].join('');
+
+// Render cards
+function renderVenues(cat) {
+  const grid = document.getElementById('venuesGrid');
+  const filtered = cat === 'all' ? venues : venues.filter(v => v.cat === cat);
+  document.getElementById('venueCount').textContent = `${filtered.length} venue${filtered.length !== 1 ? 's' : ''}`;
+
+  grid.innerHTML = filtered.map(v => `
+    <div class="venue-card" onclick="openModal(${v.id})">
+      <div class="venue-img" style="background:${v.gradient}"></div>
+      <button class="venue-cta" onclick="event.stopPropagation(); openModal(${v.id})">Inquire</button>
+      <div class="venue-info">
+        <span class="venue-type">${v.type}</span>
+        <h3 class="venue-name">${v.name}</h3>
+        <p class="venue-neighborhood">${v.neighborhood}, NYC</p>
+        <div class="venue-meta">
+          <div class="venue-meta-item"><span class="val">${v.capacity}</span><span class="key">Capacity</span></div>
+          <div class="venue-meta-item"><span class="val">${v.price}</span><span class="key">Starting Rate</span></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderVenues('all');
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('cat-active'));
+    btn.classList.add('cat-active');
+    renderVenues(btn.dataset.cat);
+  });
+});
+
+// Modal
+function openModal(id) {
+  const v = venues.find(x => x.id === id);
+  document.getElementById('mType').textContent = v.type;
+  document.getElementById('mName').textContent = v.name;
+  document.getElementById('mLocation').textContent = `${v.neighborhood}, New York City`;
+  document.getElementById('mDesc').textContent = v.desc;
+  document.getElementById('modalVisual').style.background = v.gradient;
+  document.getElementById('mSpecs').innerHTML = [
+    ['Capacity', v.capacity + ' guests'], ['Starting Rate', v.price],
+    ['Size', v.size], ['Location', v.floors]
+  ].map(([k, val]) => `<div class="spec"><span class="spec-val">${val}</span><span class="spec-key">${k}</span></div>`).join('');
+
+  document.getElementById('inquiryForm').style.display = '';
+  document.getElementById('successMsg').style.display = 'none';
+  document.getElementById('inquiryForm').reset();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('inquiryForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('inquiryForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+});
+</script>
+</body>
+</html>
